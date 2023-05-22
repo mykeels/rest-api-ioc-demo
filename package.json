@@ -13,6 +13,7 @@
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/inversify": "^2.0.33",
+    "@types/node": "^20.2.3",
     "tsup": "^6.7.0",
     "tsx": "^3.12.7",
     "typescript": "^5.0.4"
