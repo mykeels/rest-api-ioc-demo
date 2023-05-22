@@ -2,16 +2,21 @@
   "name": "rest-api-ioc-xstate-demo",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "mykeels",
+  "license": "MIT",
   "devDependencies": {
     "tsup": "^6.7.0",
     "tsx": "^3.12.7",
     "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "inversify": "^6.0.1",
+    "tsoa": "^5.1.1"
   }
 }
