@@ -1,6 +1,7 @@
 import express, { json, urlencoded } from "express";
 import { RegisterRoutes } from "./tsoa/routes";
 
+import "./bind-dependencies";
 import "./controllers";
 
 export function createExpressApp(): express.Express {
