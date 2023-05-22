@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@tsoa/runtime':
+    specifier: ^5.0.0
+    version: 5.0.0
   express:
     specifier: ^4.18.2
     version: 4.18.2

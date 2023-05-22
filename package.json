@@ -5,6 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsup src/index.ts --dts-resolve",
+    "generate:routes": "tsoa routes",
+    "generate:openapi": "tsoa spec",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,6 +23,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@tsoa/runtime": "^5.0.0",
     "express": "^4.18.2",
     "inversify": "^6.0.1",
     "mongoose": "^7.2.0",
