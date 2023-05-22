@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -18,5 +19,8 @@
     "express": "^4.18.2",
     "inversify": "^6.0.1",
     "tsoa": "^5.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
