@@ -6,6 +6,7 @@ This API will demonstrate:
   - Code be will grouped according to business domains
 - Inversion of Control (IoC)
 - OpenAPI schema will be auto-generated
+- Use gherkin specifications for E2E tests
 
 ## Bonus points
 
