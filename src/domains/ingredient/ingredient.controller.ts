@@ -25,13 +25,13 @@ import { IRepository, Model } from "../../common";
     }
 
     @Get()
-    public async get(): Promise<TIngredient[]> {
+    public async getIngredients(): Promise<TIngredient[]> {
       return this.service.repo.all({});
     }
   
     @SuccessResponse("201", "Created") // Custom success response
     @Post()
-    public async create(
+    public async createIngredient(
       @Body() requestBody: Omit<TIngredient, "nutrients">
     ): Promise<TIngredient> {
       this.setStatus(201); // set return status 201

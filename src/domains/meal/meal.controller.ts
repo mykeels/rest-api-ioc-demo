@@ -25,13 +25,13 @@ import { IRepository, Model } from "../../common";
     }
 
     @Get()
-    public async get(): Promise<TMeal[]> {
+    public async getMeals(): Promise<TMeal[]> {
       return this.service.repo.all({});
     }
   
     @SuccessResponse("201", "Created") // Custom success response
     @Post()
-    public async create(
+    public async createMeal(
       @Body() requestBody: Omit<TMeal, "ingredients">
     ): Promise<TMeal> {
       this.setStatus(201); // set return status 201

@@ -25,13 +25,13 @@ import { IRepository, Model } from "../../common";
     }
 
     @Get()
-    public async get(): Promise<TNutrient[]> {
+    public async getNutrients(): Promise<TNutrient[]> {
       return this.service.repo.all({});
     }
   
     @SuccessResponse("201", "Created") // Custom success response
     @Post()
-    public async create(
+    public async createNutrient(
       @Body() requestBody: TNutrient
     ): Promise<TNutrient> {
       this.setStatus(201); // set return status 201
