@@ -3,7 +3,7 @@ import { RegisterRoutes } from "./tsoa/routes";
 
 import "./controllers";
 
-export function createExpressApp() {
+export function createExpressApp(): express.Express {
     const app = express();
 
     app.use(
