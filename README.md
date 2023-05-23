@@ -26,3 +26,7 @@ pnpm generate:routes # to generate the API routes and OpenAPI spec in dist/swagg
 pnpm db:seed # to seed the DB
 pnpm dev # to run the server
 ```
+
+## Development
+
+Everytime you make a change, you need to run `pnpm generate:routes` to ensure the new tsoa routes are updated.
