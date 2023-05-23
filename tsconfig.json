@@ -8,7 +8,8 @@
         "esModuleInterop": true,
         "noImplicitAny": true,
         "noUncheckedIndexedAccess": true,
-        "typeRoots": ["node_modules/@types", "typings", "reflect-metadata"],
+        "skipLibCheck": true,
+        "typeRoots": ["node_modules/@types", "src/typings/**/*.d.ts", "reflect-metadata"],
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "**/*.test.ts"]
