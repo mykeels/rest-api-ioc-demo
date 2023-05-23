@@ -1,5 +1,8 @@
 import { SuperTest, Test, Request, Response } from "supertest";
 import { loadFeature, defineFeature } from "jest-cucumber";
+import { Ingredient } from "..";
+import { createIngredientRepository } from "../ingredient.repo";
+import { Model, MongoDBRepository } from "../../../common";
 
 let api: SuperTest<Test>;
 beforeEach(async () => {
@@ -10,6 +13,10 @@ const feature = loadFeature("../ingredient.feature", {
   loadRelativePath: true,
 });
 
+const repo = createIngredientRepository(
+  (name, schema) => new MongoDBRepository(name, schema)
+);
+
 defineFeature(feature, (scenario) => {
   scenario("Create an ingredient", ({ given, when, then }) => {
     let request: Request;
@@ -18,7 +25,7 @@ defineFeature(feature, (scenario) => {
     given("I have an ingredient with the following attributes", () => {
       request = api.post("/ingredients").send({
         name: "Yam",
-        nutrients: ["Carbohydrates"],
+        calories: 118,
       });
     });
 
@@ -55,9 +62,13 @@ defineFeature(feature, (scenario) => {
   scenario("Update an existing ingredient", ({ given, when, then, and }) => {
     let request: Request;
     let response: Response;
+    let existingIngredient: Model<Ingredient<any>> | null = null;
 
-    given("I have an existing ingredient", () => {
-      request = api.patch("/ingredients/1");
+    given("I have an existing ingredient", async () => {
+      existingIngredient = await repo.byQuery({});
+      request = api.patch(`/ingredients/${existingIngredient._id}`).send({
+        name: `Updated ${existingIngredient.name}`,
+      });
     });
 
     when("I update the ingredient with the following attributes", async () => {
@@ -69,16 +80,18 @@ defineFeature(feature, (scenario) => {
     });
 
     and("the response should contain the updated ingredient", async () => {
-      expect(response.status).toBe(200);
+      expect(response.body.name).toEqual(`Updated ${existingIngredient?.name}`);
     });
   });
 
   scenario("Delete an existing ingredient", ({ given, when, then }) => {
     let request: Request;
     let response: Response;
+    let existingIngredient: Model<Ingredient<any>> | null = null;
 
-    given("I have an existing ingredient", () => {
-      request = api.delete("/ingredients/1");
+    given("I have an existing ingredient", async () => {
+      existingIngredient = await repo.byQuery({});
+      request = api.delete(`/ingredients/${existingIngredient._id}`);
     });
 
     when("I delete the ingredient", async () => {
