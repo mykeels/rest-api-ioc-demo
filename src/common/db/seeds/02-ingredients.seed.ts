@@ -9,28 +9,27 @@ export async function seed(): Promise<void> {
   const ingredients = [
     {
       name: "Carrot",
+      calories: 41,
       nutrients: ["Vitamins", "Minerals"],
     },
     {
       name: "Yam",
+      calories: 41,
       nutrients: ["Carbohydrates"],
     },
     {
       name: "Egg",
+      calories: 41,
       nutrients: ["Protein"],
     },
     {
       name: "Chicken",
+      calories: 41,
       nutrients: ["Protein"],
     },
   ] as const;
   await Promise.all(
-    ingredients.map((ingredient) =>
-      repo.create({
-        name: ingredient.name,
-        nutrients: ingredient.nutrients as any,
-      })
-    )
+    ingredients.map((ingredient) => repo.create(ingredient as any))
   );
   console.log("Seeded ingredients");
 }
