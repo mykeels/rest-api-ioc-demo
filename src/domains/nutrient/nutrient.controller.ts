@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Post, Route, SuccessResponse } from "tsoa";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Path,
+  Post,
+  Route,
+  SuccessResponse,
+} from "tsoa";
 import { Nutrient } from "./nutrient.model";
 import { deps as NutrientServiceDeps } from "./nutrient.service";
 import { inject } from "inversify";
@@ -29,5 +39,24 @@ export class NutrientController extends Controller {
   ): Promise<TNutrient> {
     this.setStatus(201); // set return status 201
     return this.service.repo.create(requestBody);
+  }
+
+  @Get("{nutrientId}")
+  public async getNutrientById(@Path() nutrientId: string): Promise<TNutrient> {
+    return this.service.repo.byQuery({ _id: nutrientId });
+  }
+
+  @Patch("{nutrientId}")
+  public async updateNutrient(
+    @Path() nutrientId: string,
+    @Body() requestBody: Partial<TNutrient>
+  ): Promise<TNutrient> {
+    return this.service.repo.update({ _id: nutrientId }, requestBody);
+  }
+
+  @SuccessResponse("204", "No Content")
+  @Delete("{nutrientId}")
+  public async deleteNutrient(@Path() nutrientId: string): Promise<void> {
+    await this.service.repo.delete({ _id: nutrientId });
   }
 }
