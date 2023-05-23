@@ -7,6 +7,7 @@
     "specVersion": 3
   },
   "routes": {
-    "routesDir": "src/tsoa"
+    "routesDir": "src/tsoa",
+    "iocModule": "src/common/ioc"
   }
 }
