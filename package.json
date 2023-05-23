@@ -6,7 +6,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "tsx watch src/index.ts",
-    "build": "tsup src/index.ts --dts-resolve",
+    "build": "tsup src/index.ts && tsc --declaration",
     "generate:routes": "tsoa spec-and-routes",
     "db:seed": "tsx src/common/db/seeds/index.ts",
     "e2e": "jest --runInBand --detectOpenHandles --testTimeout=5000 --config ./jest-e2e.config.js"

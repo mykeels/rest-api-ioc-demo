@@ -1,16 +1,22 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "NodeNext",
-        "experimentalDecorators": true,
-        "outDir": "dist",
-        "strict": true,
-        "esModuleInterop": true,
-        "noImplicitAny": true,
-        "noUncheckedIndexedAccess": true,
-        "skipLibCheck": true,
-        "typeRoots": ["node_modules/@types", "src/typings/**/*.d.ts", "reflect-metadata"],
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "**/*.test.ts"]
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "experimentalDecorators": true,
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "src/typings/**/*.d.ts",
+      "reflect-metadata"
+    ]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts"]
 }
