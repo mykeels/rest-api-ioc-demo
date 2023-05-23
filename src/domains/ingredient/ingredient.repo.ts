@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema } from "mongoose";
 import { IRepository, Model } from "../../common";
 import { Ingredient } from ".";
 
