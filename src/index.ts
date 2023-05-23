@@ -6,6 +6,7 @@ import { config } from "dotenv";
 import express, { json, urlencoded } from "express";
 import { RegisterRoutes } from "./tsoa/routes";
 import { connect } from "./common/db";
+import { handleError } from "./handle-error";
 
 config();
 
@@ -19,12 +20,14 @@ export function createExpressApp(): express.Express {
   );
   app.use(json());
 
-  RegisterRoutes(app);
-
   app.use(function (req, res, next) {
     console.log("Request:", req.method, req.path);
     next();
   });
+
+  RegisterRoutes(app);
+
+  handleError(app);
 
   return app;
 }
