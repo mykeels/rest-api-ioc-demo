@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Post, Route, SuccessResponse } from "tsoa";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Path,
+  Post,
+  Route,
+  SuccessResponse,
+} from "tsoa";
 import { Ingredient } from "./ingredient.model";
 import { deps as IngredientServiceDeps } from "./ingredient.service";
 import { inject } from "inversify";
@@ -22,6 +32,13 @@ export class IngredientController extends Controller {
     return this.service.repo.all({});
   }
 
+  @Get("{ingredientId}")
+  public async getIngredientById(
+    @Path() ingredientId: string
+  ): Promise<TIngredient> {
+    return this.service.repo.byQuery({ _id: ingredientId });
+  }
+
   @SuccessResponse("201", "Created") // Custom success response
   @Post()
   public async createIngredient(
@@ -29,5 +46,19 @@ export class IngredientController extends Controller {
   ): Promise<TIngredient> {
     this.setStatus(201); // set return status 201
     return this.service.repo.create(requestBody);
+  }
+
+  @Patch("{ingredientId}")
+  public async updateIngredient(
+    @Path() ingredientId: string,
+    @Body() requestBody: Partial<Omit<TIngredient, "nutrients">>
+  ): Promise<TIngredient> {
+    return this.service.repo.update({ _id: ingredientId }, requestBody);
+  }
+
+  @SuccessResponse("204", "No Content")
+  @Delete("{ingredientId}")
+  public async deleteIngredient(@Path() ingredientId: string): Promise<void> {
+    await this.service.repo.delete({ _id: ingredientId });
   }
 }
