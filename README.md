@@ -14,3 +14,15 @@ This API will demonstrate:
   - Instead of depending directly on another service, all dependencies are on abstractions, serviced by an IoC container.
 - [x] OpenAPI schema is auto-generated
 - [x] Use gherkin specifications for E2E tests
+
+## Setup Locally
+
+Run:
+
+```sh
+docker-compose up -d # to start the mongodb server
+pnpm i
+pnpm generate:routes # to generate the API routes and OpenAPI spec in dist/swagger.json
+pnpm db:seed # to seed the DB
+pnpm dev # to run the server
+```
