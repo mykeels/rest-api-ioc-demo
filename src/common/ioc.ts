@@ -1,15 +1,22 @@
-import { Container } from "inversify";
+import { Container, decorate, injectable, interfaces } from "inversify";
+import {
+  buildProviderModule,
+  fluentProvide,
+} from "inversify-binding-decorators";
+import { Controller } from "tsoa";
 
-let _ioc: Container | null = null;
+export const ioc = new Container({
+  autoBindInjectable: true,
+});
 
-export const ioc = (container = new Container()) => {
-    if (!_ioc) {
-        _ioc = container
-    }
+export const iocContainer = ioc;
 
-    return _ioc;
+decorate(injectable(), Controller);
+
+iocContainer.load(buildProviderModule());
+
+export const singleton = function <T>(
+  identifier: interfaces.ServiceIdentifier<T>
+) {
+  return fluentProvide(identifier).inSingletonScope().done();
 };
-
-ioc.set = (container: Container) => {
-    _ioc = container;
-}

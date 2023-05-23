@@ -8,10 +8,13 @@ import type { IRepository, Model } from "../../common";
  * Dependencies of the MealService
  */
 export const deps = {
-    repo: "repo:meals"
+  repo: "repo:meals",
+  service: "service:meals",
 } as const;
 
 @injectable()
 export class MealService<TIngredient extends { name: string }> {
-    constructor(public repo = ioc().get<IRepository<Model<Meal<TIngredient>>>>(deps.repo)) {}
+  constructor(
+    public repo = ioc.get<IRepository<Model<Meal<TIngredient>>>>(deps.repo)
+  ) {}
 }
