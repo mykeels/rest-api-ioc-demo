@@ -12,8 +12,8 @@ This API will demonstrate:
   - Only common logic lives outside this heirarchy, in a common folder.
 - [x] Inversion of Control (IoC)
   - Instead of depending directly on another service, all dependencies are on abstractions, serviced by an IoC container.
-- [x] OpenAPI schema is auto-generated
-- [x] Use gherkin specifications for E2E tests
+- [x] OpenAPI schema is accurately auto-generated
+- [x] Use gherkin specifications for End-to-end (E2E) tests
 
 ## Setup Locally
 
@@ -30,3 +30,11 @@ pnpm dev # to run the server
 ## Development
 
 Everytime you make a change, you need to run `pnpm generate:routes` to ensure the new tsoa routes are updated.
+
+## Testing
+
+This project relies on End-to-end (E2E) tests, which can be run with:
+
+```sh
+pnpm e2e
+```
