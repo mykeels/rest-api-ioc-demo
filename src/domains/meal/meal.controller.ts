@@ -35,7 +35,7 @@ export class MealController extends Controller {
   @SuccessResponse("201", "Created") // Custom success response
   @Post()
   public async createMeal(
-    @Body() requestBody: Omit<TMeal, "meals">
+    @Body() requestBody: Omit<TMeal, "ingredients">
   ): Promise<TMeal> {
     this.setStatus(201); // set return status 201
     return this.service.repo.create(requestBody);
