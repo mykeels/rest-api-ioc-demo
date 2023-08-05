@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "experimentalDecorators": true,
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "recipe-api/src/typings/**/*.d.ts",
+      "reflect-metadata"
+    ]
+  },
+  "include": ["recipe-api/src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts"]
+}
