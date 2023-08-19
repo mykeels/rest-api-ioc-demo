@@ -10,9 +10,7 @@ import {
   SuccessResponse,
 } from "tsoa";
 import { Nutrient } from "./nutrient.model";
-import { deps as NutrientServiceDeps } from "./nutrient.service";
-import { inject } from "inversify";
-import { IRepository, Model } from "../../common";
+import { IRepository, Model, iocResolver } from "../../common";
 
 type TNutrient = Nutrient;
 type TService = {
@@ -22,7 +20,9 @@ type TService = {
 @Route("nutrients")
 export class NutrientController extends Controller {
   constructor(
-    @inject(NutrientServiceDeps.service) private readonly service: TService
+    private readonly service: TService = iocResolver.resolve(
+      "service:nutrients"
+    )?.()
   ) {
     super();
   }
