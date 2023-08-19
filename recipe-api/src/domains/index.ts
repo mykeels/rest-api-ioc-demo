@@ -1,14 +1,6 @@
-import {
-  deps as IngredientDependencies,
-  IngredientService,
-  Ingredient,
-} from "./ingredient";
-import { deps as MealDependencies, MealService, Meal } from "./meal";
-import {
-  deps as NutrientDependencies,
-  NutrientService,
-  Nutrient,
-} from "./nutrient";
+import { IngredientService, Ingredient } from "./ingredient";
+import { MealService, Meal } from "./meal";
+import { NutrientService, Nutrient } from "./nutrient";
 
 export {
   IngredientService,
@@ -18,9 +10,3 @@ export {
   Meal,
   Nutrient,
 };
-
-export const deps = {
-  ingredient: IngredientDependencies,
-  meal: MealDependencies,
-  nutrient: NutrientDependencies,
-} as const;

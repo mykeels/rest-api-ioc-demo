@@ -1,18 +1,8 @@
 import { injectable } from "inversify";
-import { Nutrient } from "./nutrient.model";
 
-import { ioc } from "../../common";
-import type { IRepository, Model } from "../../common";
-
-/**
- * Dependencies of the NutrientService
- */
-export const deps = {
-  repo: "repo:nutrients",
-  service: "service:nutrients",
-} as const;
+import { iocResolver } from "../../common";
 
 @injectable()
 export class NutrientService {
-  constructor(public repo = ioc.get<IRepository<Model<Nutrient>>>(deps.repo)) {}
+  constructor(public repo = iocResolver.resolve("repo:nutrients")?.()) {}
 }

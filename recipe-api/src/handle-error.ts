@@ -8,6 +8,7 @@ export function handleError(app: Express) {
     res: Response,
     next: NextFunction
   ): Response | void {
+    console.error(err);
     if (err instanceof ValidateError) {
       console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
       return res.status(422).json({
