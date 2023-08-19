@@ -43,6 +43,9 @@ importers:
       gherkin:
         specifier: npm:@cucumber/gherkin@latest
         version: /@cucumber/gherkin@26.2.0
+      http-status:
+        specifier: ^1.6.2
+        version: 1.6.2
       inversify:
         specifier: ^6.0.1
         version: 6.0.1
@@ -3863,6 +3866,11 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /http-status@1.6.2:
+    resolution: {integrity: sha512-oUExvfNckrpTpDazph7kNG8sQi5au3BeTo0idaZFXEhTaJKu7GNJCLHI0rYY2wljm548MSTM+Ljj/c6anqu2zQ==}
+    engines: {node: '>= 0.4.0'}
+    dev: false
 
   /https-proxy-agent@5.0.1:
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}

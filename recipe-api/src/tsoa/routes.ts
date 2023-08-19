@@ -25,6 +25,14 @@ const models: TsoaRoute.Models = {
         "type": {"ref":"Ingredient__name-string__","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ControllerError": {
+        "dataType": "refObject",
+        "properties": {
+            "error": {"dataType":"nestedObjectLiteral","nestedProperties":{"message":{"dataType":"string"},"name":{"dataType":"string","required":true}},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_TIngredient.Exclude_keyofTIngredient.nutrients__": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string","required":true},"calories":{"dataType":"double","required":true}},"validators":{}},

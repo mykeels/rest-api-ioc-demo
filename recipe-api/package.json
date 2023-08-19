@@ -32,9 +32,10 @@
   },
   "dependencies": {
     "@tsoa/runtime": "^5.0.0",
+    "cucumber-messages": "npm:@cucumber/messages@latest",
     "express": "^4.18.2",
     "gherkin": "npm:@cucumber/gherkin@latest",
-    "cucumber-messages": "npm:@cucumber/messages@latest",
+    "http-status": "^1.6.2",
     "inversify": "^6.0.1",
     "inversify-binding-decorators": "^4.0.0",
     "mongoose": "^7.2.0",
