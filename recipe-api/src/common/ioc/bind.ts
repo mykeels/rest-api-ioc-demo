@@ -1,3 +1,4 @@
+import httpContext from "express-http-context";
 import { ioc } from "./ioc";
 
 export const bind = <TKey extends string, TService>(
@@ -6,6 +7,26 @@ export const bind = <TKey extends string, TService>(
 ) => {
   ioc.bind<TService>(key).toConstantValue(service);
   return [key, () => ioc.get<TService>(key)] as const;
+};
+
+export const scope = <TKey extends string, TService>(
+  key: TKey,
+  service: () => TService
+) => {
+  ioc.bind<TService>(key).toDynamicValue(service).inRequestScope();
+  return [
+    key,
+    () => {
+      const scopedKey = `ioc:scoped:${key}`;
+      const scopedService = httpContext.get(scopedKey);
+      if (scopedService) {
+        return scopedService as TService;
+      }
+      const service = ioc.get<TService>(key);
+      httpContext.set(scopedKey, service);
+      return service;
+    },
+  ] as const;
 };
 
 export const register = <TMapping extends readonly [string, () => any]>(

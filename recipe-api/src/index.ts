@@ -4,9 +4,11 @@ import "./bind-dependencies";
 import { config } from "dotenv";
 
 import express, { json, urlencoded } from "express";
+import httpContext from "express-http-context";
 import { RegisterRoutes } from "./tsoa/routes";
 import { connect } from "./common/db";
 import { handleError } from "./handle-error";
+import { requestIdMiddleware } from "./common/middlewares";
 
 config();
 
@@ -19,11 +21,8 @@ export function createExpressApp(): express.Express {
     })
   );
   app.use(json());
-
-  app.use(function (req, res, next) {
-    console.log("Request:", req.method, req.path);
-    next();
-  });
+  app.use(httpContext.middleware);
+  app.use(requestIdMiddleware);
 
   RegisterRoutes(app);
 

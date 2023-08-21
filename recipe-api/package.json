@@ -34,6 +34,7 @@
     "@tsoa/runtime": "^5.0.0",
     "cucumber-messages": "npm:@cucumber/messages@latest",
     "express": "^4.18.2",
+    "express-http-context": "^1.2.4",
     "gherkin": "npm:@cucumber/gherkin@latest",
     "http-status": "^1.6.2",
     "inversify": "^6.0.1",
@@ -41,7 +42,9 @@
     "mongoose": "^7.2.0",
     "mongoose-paginate-v2": "^1.7.1",
     "reflect-metadata": "^0.1.13",
-    "tsoa": "^5.1.1"
+    "short-unique-id": "^4.4.4",
+    "tsoa": "^5.1.1",
+    "winston": "^3.10.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.4"
