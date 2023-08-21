@@ -1,12 +1,6 @@
 import { Schema } from "mongoose";
 
-import {
-  bind,
-  register,
-  IRepository,
-  MongoDBRepository,
-  scope,
-} from "./common";
+import { bind, register, IRepository, MongoDBRepository } from "./common";
 import { NutrientService, MealService, IngredientService } from "./domains";
 import { createIngredientRepository } from "./domains/ingredient/ingredient.repo";
 import { createNutrientRepository } from "./domains/nutrient/nutrient.repo";
@@ -30,7 +24,7 @@ export const resolve = register([
   ),
   bind("repo:meals", () => createMealRepository(RepositoryFactory)),
   bind("service:meals", () => new MealService(resolve("repo:meals")?.())),
-  scope("logger", () => new Logger()),
+  bind("logger", () => new Logger(), "request"),
 ]);
 
 bind("resolve", resolve);

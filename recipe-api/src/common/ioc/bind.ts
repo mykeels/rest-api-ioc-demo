@@ -1,15 +1,37 @@
 import httpContext from "express-http-context";
 import { ioc } from "./ioc";
 
-export const bind = <TKey extends string, TService>(
+export function bind<TKey extends string, TService>(
+  key: TKey,
+  service: TService,
+  scope?: "singleton"
+): readonly [TKey, () => TService];
+export function bind<TKey extends string, TService>(
+  key: TKey,
+  service: () => TService,
+  scope?: "request"
+): readonly [TKey, () => TService];
+export function bind<TKey extends string, TService>(
+  key: TKey,
+  service: TService | (() => TService),
+  scope: "singleton" | "request" = "singleton"
+) {
+  if (scope === "singleton") {
+    return bindToSingletonScope(key, service as TService);
+  } else {
+    return bindToRequestScope(key, service as () => TService);
+  }
+}
+
+const bindToSingletonScope = <TKey extends string, TService>(
   key: TKey,
   service: TService
 ) => {
-  ioc.bind<TService>(key).toConstantValue(service);
+  ioc.bind<TService>(key).toConstantValue(service as TService);
   return [key, () => ioc.get<TService>(key)] as const;
 };
 
-export const scope = <TKey extends string, TService>(
+const bindToRequestScope = <TKey extends string, TService>(
   key: TKey,
   service: () => TService
 ) => {
