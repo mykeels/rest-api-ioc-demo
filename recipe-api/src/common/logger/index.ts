@@ -11,8 +11,8 @@ export interface ILogger {
     message: string,
     ...args: TLoggable[]
   ) => void;
-  warn: <TLoggable extends Loggable>(...args: TLoggable[]) => void;
-  error: <TLoggable extends Loggable>(...args: TLoggable[]) => void;
+  warn: <TLoggable extends Loggable | Error>(...args: TLoggable[]) => void;
+  error: <TLoggable extends Loggable | Error>(...args: TLoggable[]) => void;
 
   scope: <TLoggable extends Loggable>(...args: TLoggable[]) => ILogger;
 }
@@ -21,10 +21,7 @@ export class Logger implements ILogger {
   private scopeRecord: Record<string, any> = {};
 
   constructor(
-    private logger: Pick<
-      winston.Logger,
-      "info" | "debug" | "warn" | "error"
-    > = winston.createLogger({
+    private logger: Pick<winston.Logger, "log"> = winston.createLogger({
       transports: [new winston.transports.Console()],
       level: "debug",
     })
@@ -34,28 +31,47 @@ export class Logger implements ILogger {
     return args.reduce(
       (dict, arg) => ({
         ...dict,
-        ...(typeof arg === "object"
+        ...(Array.isArray(arg)
+          ? {
+              extras: ("extras" in dict && Array.isArray(dict.extras)
+                ? dict.extras
+                : []
+              ).concat(arg),
+            }
+          : arg instanceof Error
+          ? {
+              errors: ("errors" in dict && Array.isArray(dict.errors)
+                ? dict.errors
+                : []
+              ).concat(arg.stack),
+            }
+          : typeof arg === "object"
           ? arg
-          : { extras: dict.extras.concat(arg) }),
+          : {
+              extras: ("extras" in dict && Array.isArray(dict.extras)
+                ? dict.extras
+                : []
+              ).concat(arg),
+            }),
       }),
-      { extras: [], ...this.scopeRecord } as { extras: Loggable[] }
+      this.scopeRecord
     );
   }
 
   debug<TLoggable extends Loggable>(message: string, ...args: TLoggable[]) {
-    this.logger.debug(this.merge({ message } as any, ...args));
+    this.logger.log("debug", this.merge({ message } as any, ...args));
   }
 
   info<TLoggable extends Loggable>(message: string, ...args: TLoggable[]) {
-    this.logger.info(this.merge({ message } as any, ...args));
+    this.logger.log("info", this.merge({ message } as any, ...args));
   }
 
-  warn<TLoggable extends Loggable>(...args: TLoggable[]) {
-    this.logger.warn(this.merge(...args));
+  warn<TLoggable extends Loggable | Error>(...args: TLoggable[]) {
+    this.logger.log("warn", this.merge(...args));
   }
 
-  error<TLoggable extends Loggable>(...args: TLoggable[]) {
-    this.logger.error(this.merge(...args));
+  error<TLoggable extends Loggable | Error>(...args: TLoggable[]) {
+    this.logger.log("error", this.merge(...args));
   }
 
   scope<TLoggable extends Loggable>(...args: TLoggable[]) {

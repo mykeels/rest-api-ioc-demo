@@ -50,7 +50,7 @@ export class IngredientController extends Controller {
   )
   public async getIngredients(): Promise<TIngredient[] | ControllerError> {
     try {
-      this.logger.debug("controller:getIngredients");
+      this.logger.debug("controller:getIngredients", ["a", "b", "c"]);
       return await this.service.getIngredients();
     } catch (err) {
       return this.errors.handle(err);

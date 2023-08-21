@@ -1,4 +1,5 @@
 import httpStatus from "http-status";
+import { iocResolver } from "..";
 
 interface ControllerErrorHandler {
   handle: (error: unknown) => ControllerError;
@@ -12,7 +13,8 @@ export const mapControllerErrors = (
   mapping: Record<string, number>,
   {
     setStatus,
-    logError,
+    logError = (error: unknown) =>
+      iocResolver.resolve("logger").error(error as any),
   }: { setStatus: (code: number) => void; logError?: (error: unknown) => void }
 ): ControllerErrorHandler => {
   logError = logError || console.error;
