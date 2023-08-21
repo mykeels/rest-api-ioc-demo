@@ -36,7 +36,8 @@ export class IngredientController extends Controller {
   );
 
   constructor(
-    private service: TService = iocResolver.resolve("service:ingredients")?.()
+    private service: TService = iocResolver.resolve("service:ingredients")?.(),
+    private logger = iocResolver.resolve("logger")
   ) {
     super();
   }
@@ -49,6 +50,7 @@ export class IngredientController extends Controller {
   )
   public async getIngredients(): Promise<TIngredient[] | ControllerError> {
     try {
+      this.logger.debug("controller:getIngredients", ["a", "b", "c"]);
       return await this.service.getIngredients();
     } catch (err) {
       return this.errors.handle(err);

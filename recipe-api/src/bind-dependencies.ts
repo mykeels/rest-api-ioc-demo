@@ -5,6 +5,7 @@ import { NutrientService, MealService, IngredientService } from "./domains";
 import { createIngredientRepository } from "./domains/ingredient/ingredient.repo";
 import { createNutrientRepository } from "./domains/nutrient/nutrient.repo";
 import { createMealRepository } from "./domains/meal/meal.repo";
+import { Logger } from "./common/logger";
 
 const RepositoryFactory = (name: string, schema: Schema) =>
   new MongoDBRepository(name, schema) as IRepository<any>;
@@ -23,6 +24,7 @@ export const resolve = register([
   ),
   bind("repo:meals", () => createMealRepository(RepositoryFactory)),
   bind("service:meals", () => new MealService(resolve("repo:meals")?.())),
+  bind("logger", () => new Logger(), "request"),
 ]);
 
 bind("resolve", resolve);

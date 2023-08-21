@@ -23,10 +23,14 @@ export class IngredientService {
     MongoError: Errors.IngredientConflictError,
   });
 
-  constructor(public repo = iocResolver.resolve("repo:ingredients")?.()) {}
+  constructor(
+    public repo = iocResolver.resolve("repo:ingredients")?.(),
+    private logger = iocResolver.resolve("logger")
+  ) {}
 
   public async getIngredients(): Promise<Ingredient<{ name: string }>[]> {
     try {
+      this.logger.debug("service:getIngredients");
       return await this.repo.all({});
     } catch (err: unknown) {
       throw this.errors.handle(err);
